@@ -27,9 +27,9 @@ def input_students
   puts "Please enter the names of the students".center(50)
   puts "To finish, just hit return twice".center(50)
   students =[]
-  name = gets.chomp
+  name = gets.gsub(/\n/,"")
   puts "please enter which cohort he/she is in"
-  cohort = gets.chomp.to_sym
+  cohort = gets.gsub(/\n/,"").to_sym
   cohort ||= :november
   while !name.empty? do
     students << {name: name, cohort: cohort}
@@ -40,9 +40,9 @@ def input_students
     end
     puts "Now we have #{students.count} #{@s}".center(50)
     cohort = ""
-    name = gets.chomp
+    name = gets.gsub(/\n/,"")
     puts "please enter which cohort he/she is in"
-    cohort = gets.chomp.to_sym
+    cohort = gets.gsub(/\n/,"").to_sym
     #cohort ||= :november
 
   end
