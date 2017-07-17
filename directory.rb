@@ -84,7 +84,8 @@ def process(selection)
 end
 
 def save_students
-  file = File.open("students.csv", "w")
+  puts "What would you like to call your file?"
+  file = File.open("#{gets.chomp}.csv", "w")
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
     csv_line = student_data.join(",")
@@ -94,7 +95,8 @@ def save_students
 end
 
 def load_students(filename = "students.csv")
-  file = File.open(filename, "r")
+  puts "Please provide the filename you wish to load"
+  file = File.open(gets.chomp + ".csv", "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(",")
     add_students_to_array(name, cohort)
