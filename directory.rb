@@ -7,20 +7,13 @@ def print_header
 end
 
 def print_students
-   if @students.count <= 0
-     return
-   end
-  cohort_list = @students.map do |a|
-    a[:cohort]
-  end
+  return if @students.count <= 0
+  cohort_list = @students.map { |a| a[:cohort] }
   cohort_list.uniq!
-  cohort_list.sort!
   cohort_list.each do |cohort|
-    puts "cohort: #{cohort}"
+    puts "#{cohort.capitalize} Cohort:"
     @students.each do |student|
-      if student[:cohort] == cohort
-        puts student[:name]
-      end
+      if student[:cohort] == cohort then puts student[:name] end
     end
   end
 end
@@ -29,30 +22,21 @@ def print_footer
   if @students.count <= 0
     return
   end
-  puts "Overall, we have #{@students.count} great #{@s}".center(50)
+  puts "Overall, we have #{@students.count} great student#{@s}".center(50)
 end
 
 def input_students
-  puts "Please enter the names of the students".center(50)
-  puts "To finish, just hit return twice".center(50)
+  puts "Please enter the name of the students".center(50)
   name = STDIN.gets.gsub(/\n/,"")
-  puts "please enter which cohort he/she is in"
-  cohort = STDIN.gets.gsub(/\n/,"")
   while !name.empty? do
-    if cohort == ""
-      cohort = :november
-    end
+    puts "Please enter which cohort he/she is in".center(50)
+    cohort = STDIN.gets.gsub(/\n/,"")
+    if cohort == "" then cohort = :november end
     add_students_to_array(name,cohort)
-    if @students.count == 1
-      @s = "student"
-    else
-      @s = "students"
-    end
-    puts "Now we have #{@students.count} #{@s}".center(50)
-    cohort = ""
+    if @students.count != 1 then @s = "s" end
+    puts "Now we have #{@students.count} student#{@s}".center(50)
+    puts "Please enter another student or hit return to finish".center(50)
     name = STDIN.gets.gsub(/\n/,"")
-    puts "please enter which cohort he/she is in"
-    cohort = STDIN.gets.gsub(/\n/,"").to_sym
   end
 end
 
@@ -94,7 +78,6 @@ def process(selection)
   end
 end
 
-
 def save_students
   file = File.open("students.csv", "w")
   @students.each do |student|
@@ -112,7 +95,6 @@ def load_students(filename = "students.csv")
     add_students_to_array(name, cohort)
   end
   file.close
-
 end
 
 def try_load_students
@@ -127,9 +109,8 @@ def try_load_students
   end
 end
 
-
 def add_students_to_array(name, cohort)
-  @students << {name: name, cohort: cohort.to_sym}
+  @students << {name: name.capitalize, cohort: cohort.to_sym}
 end
 
 try_load_students
