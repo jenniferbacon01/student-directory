@@ -62,14 +62,19 @@ def show_students
 end
 
 def process(selection)
+  success = "You selected "
   case selection
   when "1"
+    puts success + "1"
     input_students
   when "2"
+    puts success + "2"
     show_students
   when "3"
+    puts success + "3"
     save_students
   when "4"
+    puts success + "4"
     load_students
   when "9"
     exit
