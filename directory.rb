@@ -4,10 +4,18 @@ def print_header
 end
 
 def print(students)
-  i = 0
-  while i < students.length
-    puts "#{students[i][:name]} (#{students[i][:cohort]}) cohort hobby: #{students[i][:hobby]} height: #{students[i][:height]}"
-    i +=1
+  cohort_list = students.map do |a|
+    a[:cohort]
+    #unless cohort_list.include?(students[a][:cohort])
+  end
+  cohort_list.uniq!.sort!
+  cohort_list.each do |cohort|
+    puts "cohort: #{cohort}"
+    students.each do |student|
+      if student[:cohort] == cohort
+        puts student[:name]
+      end
+    end
   end
 end
 
@@ -20,18 +28,18 @@ def input_students
   puts "To finish, just hit return twice".center(50)
   students =[]
   name = gets.chomp
-  puts "enter hobby".center(50)
-  hobby = gets.chomp
-  puts "enter height".center(50)
-  height = gets.chomp
+  puts "please enter which cohort he/she is in"
+  cohort = gets.chomp.to_sym
+  cohort ||= :november
   while !name.empty? do
-    students << {name: name, cohort: :november, hobby: hobby, country_of_birth: :UK, height: height}
+    students << {name: name, cohort: cohort}
     puts "Now we have #{students.count} students".center(50)
+    cohort = ""
     name = gets.chomp
-    puts "enter hobby".center(50)
-    hobby = gets.chomp
-    puts "enter height".center(50)
-    height = gets.chomp
+    puts "please enter which cohort he/she is in"
+    cohort = gets.chomp.to_sym
+    #cohort ||= :november
+
   end
   students
 end
