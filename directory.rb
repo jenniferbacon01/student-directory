@@ -4,6 +4,9 @@ def print_header
 end
 
 def print(students)
+  if students.count <= 0
+    return
+  end
   cohort_list = students.map do |a|
     a[:cohort]
   end
@@ -20,6 +23,9 @@ def print(students)
 end
 
 def print_footer(students)
+  if students.count <= 0
+    return
+  end
   puts "Overall, we have #{students.count} great #{@s}".center(50)
 end
 
@@ -30,8 +36,8 @@ def input_students
   name = gets.gsub(/\n/,"")
   puts "please enter which cohort he/she is in"
   cohort = gets.gsub(/\n/,"").to_sym
-  cohort ||= :november
   while !name.empty? do
+    cohort ||= :november
     students << {name: name, cohort: cohort}
     if students.count == 1
       @s = "student"
