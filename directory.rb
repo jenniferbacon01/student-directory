@@ -42,7 +42,7 @@ def input_students
     if cohort == ""
       cohort = :november
     end
-    @students << {name: name, cohort: cohort.to_sym}
+    add_students_to_array(name,cohort)
     if @students.count == 1
       @s = "student"
     else
@@ -109,7 +109,7 @@ def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(",")
-    @students << {name: name, cohort: cohort.to_sym}
+    add_students_to_array(name, cohort)
   end
   file.close
 
@@ -125,6 +125,11 @@ def try_load_students
     puts "Sorry, #{filename} doesn't exist."
     exit
   end
+end
+
+
+def add_students_to_array(name, cohort)
+  @students << {name: name, cohort: cohort.to_sym}
 end
 
 try_load_students
