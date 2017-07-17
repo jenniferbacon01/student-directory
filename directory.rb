@@ -1,6 +1,6 @@
 def print_header
-  puts "The students of Villains Academy"
-  puts "-----------------"
+  puts "The students of Villains Academy".center(50)
+  puts "-----------------".center(50)
 end
 
 def print(students)
@@ -12,25 +12,25 @@ def print(students)
 end
 
 def print_footer(students)
-  puts "Overall, we have #{students.count} great students"
+  puts "Overall, we have #{students.count} great students".center(50)
 end
 
 def input_students
-  puts "Please enter the names of the students"
-  puts "To finish, just hit return twice"
+  puts "Please enter the names of the students".center(50)
+  puts "To finish, just hit return twice".center(50)
   students =[]
   name = gets.chomp
-  puts "enter hobby"
+  puts "enter hobby".center(50)
   hobby = gets.chomp
-  puts "enter height"
+  puts "enter height".center(50)
   height = gets.chomp
   while !name.empty? do
     students << {name: name, cohort: :november, hobby: hobby, country_of_birth: :UK, height: height}
-    puts "Now we have #{students.count} students"
+    puts "Now we have #{students.count} students".center(50)
     name = gets.chomp
-    puts "enter hobby"
+    puts "enter hobby".center(50)
     hobby = gets.chomp
-    puts "enter height"
+    puts "enter height".center(50)
     height = gets.chomp
   end
   students
