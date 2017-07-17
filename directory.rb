@@ -19,10 +19,8 @@ def print_header
 end
 
 def print(students)
-  puts "Type letter to search:"
-  letter = gets.chomp
   students.each_with_index do |student, index|
-    if student[:name].start_with?(letter)
+    if student[:name].length < 12
       puts "#{index+1}. #{student[:name]} (#{student[:cohort]}) cohort"
     end
   end
