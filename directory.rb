@@ -37,10 +37,12 @@ def input_students
   puts "To finish, just hit return twice".center(50)
   name = STDIN.gets.gsub(/\n/,"")
   puts "please enter which cohort he/she is in"
-  cohort = STDIN.gets.gsub(/\n/,"").to_sym
+  cohort = STDIN.gets.gsub(/\n/,"")
   while !name.empty? do
-    #cohort ||= :november
-    @students << {name: name, cohort: cohort}
+    if cohort == ""
+      cohort = :november
+    end
+    @students << {name: name, cohort: cohort.to_sym}
     if @students.count == 1
       @s = "student"
     else
