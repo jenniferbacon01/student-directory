@@ -6,9 +6,9 @@ end
 def print(students)
   cohort_list = students.map do |a|
     a[:cohort]
-    #unless cohort_list.include?(students[a][:cohort])
   end
-  cohort_list.uniq!.sort!
+  cohort_list.uniq!
+  cohort_list.sort!
   cohort_list.each do |cohort|
     puts "cohort: #{cohort}"
     students.each do |student|
@@ -20,7 +20,7 @@ def print(students)
 end
 
 def print_footer(students)
-  puts "Overall, we have #{students.count} great students".center(50)
+  puts "Overall, we have #{students.count} great #{@s}".center(50)
 end
 
 def input_students
@@ -33,7 +33,12 @@ def input_students
   cohort ||= :november
   while !name.empty? do
     students << {name: name, cohort: cohort}
-    puts "Now we have #{students.count} students".center(50)
+    if students.count == 1
+      @s = "student"
+    else
+      @s = "students"
+    end
+    puts "Now we have #{students.count} #{@s}".center(50)
     cohort = ""
     name = gets.chomp
     puts "please enter which cohort he/she is in"
