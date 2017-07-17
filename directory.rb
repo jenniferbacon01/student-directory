@@ -1,18 +1,3 @@
-#let's put the students into an array
-# students = [
-#   {name: "Dr. Hannibal Lecter", cohort: :november},
-#   {name: "Darth Vader", cohort: :november},
-#   {name: "Nurse Ratched", cohort: :november},
-#   {name: "Michael Corleone", cohort: :november},
-#   {name: "Alex DeLarge", cohort: :november},
-#   {name: "The Wicked Witch of the West", cohort: :november},
-#   {name: "Terminator", cohort: :november},
-#   {name: "Freddy Krueger", cohort: :november},
-#   {name: "The Joker", cohort: :november},
-#   {name: "Joffrey Baratheon", cohort: :november},
-#   {name: "Norman Bates", cohort: :november}
-# ]
-
 def print_header
   puts "The students of Villains Academy"
   puts "-----------------"
@@ -21,7 +6,7 @@ end
 def print(students)
   i = 0
   while i < students.length
-    puts "#{students[i][:name]} (#{students[i][:cohort]}) cohort"
+    puts "#{students[i][:name]} (#{students[i][:cohort]}) cohort hobby: #{students[i][:hobby]} height: #{students[i][:height]}"
     i +=1
   end
 end
@@ -35,10 +20,18 @@ def input_students
   puts "To finish, just hit return twice"
   students =[]
   name = gets.chomp
+  puts "enter hobby"
+  hobby = gets.chomp
+  puts "enter height"
+  height = gets.chomp
   while !name.empty? do
-    students << {name: name, cohort: :november}
+    students << {name: name, cohort: :november, hobby: hobby, country_of_birth: :UK, height: height}
     puts "Now we have #{students.count} students"
     name = gets.chomp
+    puts "enter hobby"
+    hobby = gets.chomp
+    puts "enter height"
+    height = gets.chomp
   end
   students
 end
