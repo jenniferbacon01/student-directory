@@ -1,3 +1,4 @@
+require 'csv'
 
 @students = []
 
@@ -38,7 +39,7 @@ def input_students
       add_students_to_array(name,cohort)
       if @students.count != 1 then @s = "s" end
       puts "Now we have #{@students.count} student#{@s}".center(50)
-      puts "Please enter another student or hit return to finish".center(50)  
+      puts "Please enter another student or hit return to finish".center(50)
     end
     name = STDIN.gets.gsub(/\n/,"")
   end
@@ -89,23 +90,32 @@ end
 
 def save_students
   puts "What would you like to call your file?"
-  file = File.open("#{gets.chomp}.csv", "w") do |file|
+  CSV.open("#{gets.chomp}.csv", "wb") do |csv|
     @students.each do |student|
-      student_data = [student[:name], student[:cohort]]
-      csv_line = student_data.join(",")
-      file.puts csv_line
+      csv << [student[:name], student[:cohort]]
     end
   end
+  # file = File.open("#{gets.chomp}.csv", "w") do |file|
+  #   @students.each do |student|
+  #     student_data = [student[:name], student[:cohort]]
+  #     csv_line = student_data.join(",")
+  #     file.puts csv_line
+  #   end
+  # end
 end
 
 def load_students(filename = "students.csv")
   puts "Please provide the filename you wish to load"
-  file = File.open(gets.chomp + ".csv", "r") do |file|
-    file.readlines.each do |line|
-      name, cohort = line.chomp.split(",")
-      add_students_to_array(name, cohort)
-    end
+  CSV.foreach("#{gets.chomp}.csv") do |row|
+    name, cohort = row[0], row[1]
+    add_students_to_array(name, cohort)
   end
+  # file = File.open(gets.chomp + ".csv", "r") do |file|
+  #   file.readlines.each do |line|
+  #     name, cohort = line.chomp.split(",")
+  #     add_students_to_array(name, cohort)
+  #   end
+  # end
 end
 
 def try_load_students
