@@ -29,13 +29,17 @@ def input_students
   puts "Please enter the name of the students".center(50)
   name = STDIN.gets.gsub(/\n/,"")
   while !name.empty? do
-    puts "Please enter which cohort he/she is in".center(50)
-    cohort = STDIN.gets.gsub(/\n/,"")
-    if cohort == "" then cohort = :november end
-    add_students_to_array(name,cohort)
-    if @students.count != 1 then @s = "s" end
-    puts "Now we have #{@students.count} student#{@s}".center(50)
-    puts "Please enter another student or hit return to finish".center(50)
+    if name[0] =~ /\d/
+      puts "Please type a name not a number".center(50)
+    else
+      puts "Please enter which cohort he/she is in".center(50)
+      cohort = STDIN.gets.gsub(/\n/,"")
+      if cohort == "" then cohort = :november end
+      add_students_to_array(name,cohort)
+      if @students.count != 1 then @s = "s" end
+      puts "Now we have #{@students.count} student#{@s}".center(50)
+      puts "Please enter another student or hit return to finish".center(50)  
+    end
     name = STDIN.gets.gsub(/\n/,"")
   end
 end
@@ -85,23 +89,23 @@ end
 
 def save_students
   puts "What would you like to call your file?"
-  file = File.open("#{gets.chomp}.csv", "w")
-  @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
+  file = File.open("#{gets.chomp}.csv", "w") do |file|
+    @students.each do |student|
+      student_data = [student[:name], student[:cohort]]
+      csv_line = student_data.join(",")
+      file.puts csv_line
+    end
   end
-  file.close
 end
 
 def load_students(filename = "students.csv")
   puts "Please provide the filename you wish to load"
-  file = File.open(gets.chomp + ".csv", "r")
-  file.readlines.each do |line|
-    name, cohort = line.chomp.split(",")
-    add_students_to_array(name, cohort)
+  file = File.open(gets.chomp + ".csv", "r") do |file|
+    file.readlines.each do |line|
+      name, cohort = line.chomp.split(",")
+      add_students_to_array(name, cohort)
+    end
   end
-  file.close
 end
 
 def try_load_students
